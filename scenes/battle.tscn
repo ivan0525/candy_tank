@@ -1,0 +1,304 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/battle.gd" id="1_battle"]
+[ext_resource type="Texture2D" path="res://assets/sprites/hud_panel.png" id="2_panel"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player_icon.png" id="3_life"]
+[ext_resource type="Texture2D" path="res://assets/ui/paused.png" id="4_paused"]
+[ext_resource type="Texture2D" path="res://assets/ui/stage_label.png" id="5_intro"]
+[ext_resource type="Texture2D" path="res://assets/ui/stageclear.png" id="6_result"]
+[ext_resource type="SystemFont" path="res://assets/fonts/ui_font.tres" id="7_font"]
+
+[node name="Battle" type="Node2D"]
+script = ExtResource("1_battle")
+
+[node name="Bg" type="ColorRect" parent="."]
+offset_right = 576.0
+offset_bottom = 416.0
+color = Color(1, 0.82, 0.89, 1)
+mouse_filter = 2
+
+[node name="World" type="Node2D" parent="."]
+
+[node name="Floor" type="TileMapLayer" parent="World"]
+texture_filter = 0
+
+[node name="Walls" type="TileMapLayer" parent="World"]
+texture_filter = 0
+
+[node name="Overlay" type="TileMapLayer" parent="World"]
+texture_filter = 0
+
+[node name="Entities" type="Node2D" parent="World"]
+
+[node name="Bushes" type="Node2D" parent="World"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="TextureRect" parent="HUD"]
+offset_left = 416.0
+offset_right = 576.0
+offset_bottom = 416.0
+texture = ExtResource("2_panel")
+expand_mode = 1
+stretch_mode = 1
+texture_filter = 0
+
+[node name="Title" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 144.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.91, 0.29, 0.53, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 18
+text = "糖果坦克"
+horizontal_alignment = 1
+
+[node name="ScoreCap" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 52.0
+offset_right = 142.0
+offset_bottom = 72.0
+theme_override_colors/font_color = Color(0.55, 0.25, 0.38, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 13
+text = "分数"
+
+[node name="Score" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 70.0
+offset_right = 142.0
+offset_bottom = 96.0
+theme_override_colors/font_color = Color(0.23, 0.13, 0.26, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 22
+text = "0"
+
+[node name="High" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 100.0
+offset_right = 142.0
+offset_bottom = 122.0
+theme_override_colors/font_color = Color(0.55, 0.25, 0.38, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 13
+text = "HI 0"
+
+[node name="Stage" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 128.0
+offset_right = 142.0
+offset_bottom = 152.0
+theme_override_colors/font_color = Color(0.23, 0.13, 0.26, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 16
+text = "关卡 1"
+
+[node name="Left" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 156.0
+offset_right = 142.0
+offset_bottom = 178.0
+theme_override_colors/font_color = Color(0.23, 0.13, 0.26, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 16
+text = "敌方 20"
+
+[node name="EnemyIcons" type="GridContainer" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 184.0
+offset_right = 146.0
+offset_bottom = 300.0
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 4
+
+[node name="LifeIcon" type="TextureRect" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 312.0
+offset_right = 44.0
+offset_bottom = 336.0
+texture = ExtResource("3_life")
+expand_mode = 1
+stretch_mode = 5
+texture_filter = 0
+
+[node name="Lives" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 48.0
+offset_top = 314.0
+offset_right = 140.0
+offset_bottom = 338.0
+theme_override_colors/font_color = Color(0.23, 0.13, 0.26, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 18
+text = "× 3"
+
+[node name="Level" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 348.0
+offset_right = 142.0
+offset_bottom = 372.0
+theme_override_colors/font_color = Color(0.91, 0.29, 0.53, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 15
+text = "火力 ★"
+
+[node name="Hint" type="Label" parent="HUD/Panel"]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 380.0
+offset_right = 144.0
+offset_bottom = 404.0
+theme_override_colors/font_color = Color(0.7, 0.35, 0.5, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 11
+text = "P 暂停"
+horizontal_alignment = 1
+
+[node name="OverlayUI" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Intro" type="Control" parent="OverlayUI"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Dim" type="ColorRect" parent="OverlayUI/Intro"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.82, 0.9, 0.72)
+mouse_filter = 2
+
+[node name="Banner" type="TextureRect" parent="OverlayUI/Intro"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -48.0
+offset_right = 180.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_intro")
+stretch_mode = 5
+texture_filter = 0
+
+[node name="StageNum" type="Label" parent="OverlayUI/Intro"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = 20.0
+offset_right = 80.0
+offset_bottom = 56.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.91, 0.29, 0.53, 1)
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 28
+text = "第 1 关"
+horizontal_alignment = 1
+
+[node name="Paused" type="Control" parent="OverlayUI"]
+visible = false
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dim" type="ColorRect" parent="OverlayUI/Paused"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.23, 0.13, 0.26, 0.35)
+mouse_filter = 2
+
+[node name="Banner" type="TextureRect" parent="OverlayUI/Paused"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -36.0
+offset_right = 180.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_paused")
+stretch_mode = 5
+texture_filter = 0
+
+[node name="Result" type="TextureRect" parent="OverlayUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -180.0
+offset_top = -92.0
+offset_right = 180.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_result")
+stretch_mode = 5
+texture_filter = 0
+
+[node name="Tally" type="Label" parent="OverlayUI"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -140.0
+offset_top = -8.0
+offset_right = 140.0
+offset_bottom = 108.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.23, 0.13, 0.26, 1)
+theme_override_colors/font_shadow_color = Color(1, 0.96, 0.91, 0.8)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_fonts/font = ExtResource("7_font")
+theme_override_font_sizes/font_size = 16
+text = ""
+horizontal_alignment = 1
+vertical_alignment = 1

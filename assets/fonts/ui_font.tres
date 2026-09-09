@@ -1,0 +1,8 @@
+[gd_resource type="SystemFont" format=3]
+
+[resource]
+font_names = PackedStringArray("Heiti SC", "STHeiti", "PingFang SC", "Hiragino Sans GB", "Songti SC", "Arial Unicode MS")
+font_weight = 600
+antialiasing = 1
+hinting = 1
+subpixel_positioning = 0
